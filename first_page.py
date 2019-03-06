@@ -91,13 +91,6 @@ tab_1_entry_id = Entry(enter_new_user_tab,width=10  ,bg="white" ,fg="red",font=(
 tab_1_entry_id.place(relx=0.2,x=50,y=80 )
 
 
-#Enter Name Field
-tab_1_label_name = Label(enter_new_user_tab, text="Enter Name : ",width=10  ,height=2  ,font=('times', 15, ' bold ') ) 
-tab_1_label_name.place(relx=0.2,x=-150,y=105 )
-
-tab_1_entry_name = Entry(enter_new_user_tab,width=10  ,bg="white" ,fg="red",font=('times', 15, ' bold '))
-tab_1_entry_name.place(relx=0.2,x=50,y=120 )
-
 
 #Show status
 tab_1_label_msg = Label(enter_new_user_tab, text="", width=50, height=2, font=('times', 15, ' bold ') ) 
@@ -107,24 +100,25 @@ tab_1_label_msg.place(x=0,y=200 )
 
 ######################################### Tab 1 Functions ##############################
 def clear():
-    tab_1_entry_id.delete(0, 'end')
-    tab_1_entry_name.delete(0, 'end')  
+    tab_1_entry_id.delete(0, 'end')  
     res = ""
     tab_1_label_msg.configure(text= res)   
 
 def takeImage():
     id = tab_1_entry_id.get()
-    name = tab_1_entry_name.get()
 
-    if (len(id)>0) and (len(name)>0):
+    if ((len(id)>0) and id.isalnum()):
         print("all are valid")
-        print(id,name)
+        print(id)
         #TAKE IMAGE FUNCTION facere library >> take image and store
-        
+        facerec.take_image(id)
+
+
+
         tab_1_label_msg.configure(text='Training images ....', fg="blue")
         messagebox.showinfo('info ', 'Training model with new image ')
         #TRAIN FUNCTON here
-
+        facerec.save_encodings()
         tab_1_label_msg.configure(text='Student Sucessfully Entered', fg="green")
         messagebox.showinfo('sucess ', 'Student Sucessfully Entered')
         clear()
