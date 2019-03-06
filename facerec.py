@@ -2,9 +2,11 @@ import face_recognition
 import cv2
 import os
 import pickle
+import pandas as pd
+import datetime
+import time
 
 # Get a reference to webcam #0 (the default one)
-video_capture = cv2.VideoCapture(0)
 
 #we put out face encodings saved in a file
 known_face_encodings = []
@@ -36,6 +38,7 @@ def save_encodings():
 
 
 def load_encodings():
+
     global known_face_encodings
     global known_face_names
     #load pickle
@@ -51,6 +54,13 @@ def load_encodings():
 
 def track_image():
     load_encodings() #first load image encodings 
+    video_capture = cv2.VideoCapture(0)
+    stu_att ={
+        'id':'Unknown',
+        'time':'',
+        'date':''
+    }
+    name =''
     while True:
         # Grab a single frame of video
         ret, frame = video_capture.read()
@@ -64,10 +74,20 @@ def track_image():
             # See if the face is a match for the known face(s) #Note:: TOLERANE best 0.6 >> detecting twins also so don't go 0.4 >> less tolerance
             matches = face_recognition.compare_faces(known_face_encodings, face_encoding,tolerance=0.4)
             name = "Unknown"
+            stu_att['id'] = "Unknown"
             # If a match was found in known_face_encodings, just use the first one.
             if True in matches:
                 first_match_index = matches.index(True)
                 name = known_face_names[first_match_index]
+                
+                #also save to dict for later attendance
+                ts = time.time()      
+                date = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
+                timeStamp = datetime.datetime.fromtimestamp(ts).strftime('%H:%M:%S')
+                stu_att['id'] = str(name)
+                stu_att['date'] = str(date)
+                stu_att['time'] = str(timeStamp)
+            
             # Draw a box around the face
             cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
             # Draw a label with a name below the face
@@ -77,11 +97,77 @@ def track_image():
         # Display the resulting image
         cv2.imshow('Video', frame)
         # Hit 'q' on the keyboard to quit!
+        
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
+    
     # Release handle to the webcam
-    video_capture.release()
     cv2.destroyAllWindows()
+    video_capture.release()
+    ##Save student's attendance
+    if(stu_att['id']!="Unknown"):
+        print("Given Attendance  :): ",stu_att['id'])
+        status = give_attendance(stu_att['date'],stu_att['time'],stu_att['id'])
+        print(status)
+
+        return status
+    else:
+        # print(os.path.isfile("D:\Project new\FRAS\fras\attendance_reorts\10.xls"))
+        print("attendance not given")
+        return 0
+    
+
+
+def give_attendance(datee,time,id):
+    file_path = './reports/'+datee+'.csv'
+    if(checkfile(datee+'.csv')):
+        #check if already taken attendance
+        df = pd.read_csv(file_path)
+        for x in df['id']:
+            if str(x)==id:
+                print("Student already Taken Attendance!")
+                return 1
+            else:
+                #append at last
+                print("Append to old exacel")
+                length = len(df)
+                df.loc[length]=['529','8/19/2014','10:30']
+                df.to_csv(file_path,index=False)
+                return 2
+    else:
+        # creat a new df and create a file and add attendance
+        print("creating new excel ")
+        df = pd.DataFrame(columns=['id','date','time'])
+        df.loc[0]=[id,datee,time]
+        df.to_csv(file_path,index=False)
+        return 3
+
+
+
+
+        
+
+
+
+def checkfile(report_date):
+    file_path = './reports/'+report_date
+    if(os.path.isfile(file_path)):
+        return True
+    else:
+        return False
+
+    
+
+
+
+
+def store_attendance():
+    print("checking if today csv is exist or not")
+    print("If not exist creating one with current student")
+    print("else appending take the csv and append new student at last. ")
+
+
+
 
 
 
