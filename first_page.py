@@ -197,10 +197,18 @@ def get_t_percentage():
      
 
 
+def get_rep():
+    print(get_reports.get_all_att_reports_list())
+    # get_reports.get_all_reports_desktop()
 
+def get_rep_desk():
+    status = get_reports.get_all_reports_desktop()
+    if status == 1:
+        messagebox.showinfo('sucess', "All reports are stored on Desktop in folder :: FRAS_ALL_REPORTS")
 
+    
 ######################################### Tab 2 Buttons ##############################
-get_t_per_btn = Button(get_reports_tab, text="Get Today's Attendance Percentage", bg="brown", fg="white", command=get_t_percentage, font=('times', 15, ' bold '))
+get_t_per_btn = Button(get_reports_tab, text="Get Today's Attendance Percentage", bg="brown", fg="white", command=get_rep_desk, font=('times', 15, ' bold '))
 get_t_per_btn.place(relx=0.35,x=0,y=30 )
 
 
