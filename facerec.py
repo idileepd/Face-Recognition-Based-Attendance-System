@@ -10,6 +10,8 @@ video_capture = cv2.VideoCapture(0)
 known_face_encodings = []
 known_face_names = []
 
+
+
 def save_encodings():
     #iterate over directory of images 
     directory = '.\images'
@@ -32,7 +34,6 @@ def save_encodings():
         pickle.dump(known_face_names,f)
         print("names saved")
 
-# save_encodings()
 
 def load_encodings():
     global known_face_encodings
@@ -48,10 +49,8 @@ def load_encodings():
         # print(face_encodes)
         known_face_encodings = face_encodes
 
-# load_encodings()
-
 def track_image():
-    load_encodings()
+    load_encodings() #first load image encodings 
     while True:
         # Grab a single frame of video
         ret, frame = video_capture.read()
@@ -83,3 +82,10 @@ def track_image():
     # Release handle to the webcam
     video_capture.release()
     cv2.destroyAllWindows()
+
+
+
+def take_image():
+    print("taking image ")
+    print("choosing right image !")
+    print("Saving Image on images folder")
