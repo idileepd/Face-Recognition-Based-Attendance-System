@@ -38,7 +38,6 @@ def save_encodings():
 
 
 def load_encodings():
-
     global known_face_encodings
     global known_face_names
     #load pickle
@@ -151,10 +150,6 @@ def give_attendance(datee,time,id):
 
 
 
-        
-
-
-
 def checkfile(report_date):
     file_path = './reports/'+report_date
     if(os.path.isfile(file_path)):
@@ -163,16 +158,6 @@ def checkfile(report_date):
         return False
 
     
-
-
-
-
-def store_attendance():
-    print("checking if today csv is exist or not")
-    print("If not exist creating one with current student")
-    print("else appending take the csv and append new student at last. ")
-
-
 
 
 

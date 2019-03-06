@@ -18,7 +18,7 @@
 # else:
 #     print("Wrong choice entered")
 
-
+import get_reports
 import facerec
 from tkinter import *
 from tkinter import ttk
@@ -67,9 +67,13 @@ get_reports_tab = ttk.Frame(tab_control)
 
 
 #add created tabs to tab controller
-tab_control.add(enter_new_user_tab, text='  Enter New User  ')
 tab_control.add(take_attendance_tab, text='  Take Attendance  ')
+tab_control.add(enter_new_user_tab, text='  Enter New User  ')
 tab_control.add(get_reports_tab, text='  Get Repots  ')
+
+
+
+
 
 
 ######################################################################################
@@ -129,12 +133,15 @@ def takeImage():
 
 
 
-
-
 ######################################### Tab 1 Buttons ##############################
 
 take_image_btn = Button(enter_new_user_tab, text="Take Image", bg="orange", fg="white", command=takeImage)
 take_image_btn.place(relx=0.2,x=50,y=160 )
+
+
+
+
+
 
 
 
@@ -147,22 +154,27 @@ take_image_btn.place(relx=0.2,x=50,y=160 )
 ######################################### Tab 2 Widgets ##############################
 
 
+######################################### Tab 2 Functions ##############################
 
-######################################### Tab 1 Functions ##############################
-
-def take_attendance():
+def take_attendances():
     status = facerec.track_image()
-    if status:
-        messagebox.showinfo('Sucess ', 'Student attendance given Sucessfully')        
-    else:
+    if status == 0:
         messagebox.showerror('No Attendance Given', 'Face is neither Recognized nor Detected')
+    elif status == 1:
+        messagebox.showwarning('Already taken !', 'Student has already given attendance')
+    else:
+        messagebox.showinfo('sucess ', 'Student has given attendance')
+     
+
 
 
 
 ######################################### Tab 2 Buttons ##############################
 
-take_image_btn = Button(take_attendance_tab, text="Take Image", bg="pink", fg="white", command=take_attendance, font=('times', 15, ' bold '))
-take_image_btn.place(relx=0.2,x=0,y=30 )
+take_image_btn = Button(take_attendance_tab, text="Take Image", bg="red", fg="white", command=take_attendances, font=('times', 15, ' bold '))
+take_image_btn.place(relx=0.4,x=0,y=30 )
+
+
 
 
 
@@ -178,38 +190,18 @@ take_image_btn.place(relx=0.2,x=0,y=30 )
 ######################################### Tab 3 Widgets ##############################
 
 
-
 ######################################### Tab 3 Functions ##############################
-
-def take_attendances():
-    status = facerec.track_image()
-    if status == 0:
-        messagebox.showerror('No Attendance Given', 'Face is neither Recognized nor Detected')
-    elif status == 1:
-        messagebox.showwarning('Already taken !', 'Student has already given attendance')
-    else:
-        messagebox.showinfo('sucess ', 'Student has given attendance')
+def get_t_percentage():
+    percentage = get_reports.get_today_att_percentage()
+    messagebox.showinfo('sucess ', str(percentage))
      
 
 
 
 
-######################################### Tab 3 Buttons ##############################
-
-take_image_btn = Button(take_attendance_tab, text="Take Image", bg="pink", fg="white", command=take_attendances, font=('times', 15, ' bold '))
-take_image_btn.place(relx=0.2,x=0,y=30 )
-
-
-
-
-
-
-
-
-
-
-
-
+######################################### Tab 2 Buttons ##############################
+get_t_per_btn = Button(get_reports_tab, text="Get Today's Attendance Percentage", bg="brown", fg="white", command=get_t_percentage, font=('times', 15, ' bold '))
+get_t_per_btn.place(relx=0.35,x=0,y=30 )
 
 
 
