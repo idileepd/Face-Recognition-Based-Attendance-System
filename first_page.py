@@ -3,6 +3,7 @@ import facerec
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
+import plot_graphs
 
 
 window = Tk()
@@ -274,14 +275,34 @@ get_rep_perc_avg_btn.place(relx=0.5,x=-150,y=230 )
 #---------------------------------------------------------------------------------------------------------------------------------#
 ######################################### Tab 4 Widgets ##############################
 
+#specific Start day  store combo
+start_dt_combo = ttk.Combobox(plot_graphs_tab)
+start_dt_combo['values'] = tuple( [x[:-4] for x in get_reports.get_all_att_reports_list()  ] )
+start_dt_combo.current(0) #set the default on 
+start_dt_combo.place(relx=0.3,x=100,y=230 )
+#------------------------------
+end_dt_combo = ttk.Combobox(plot_graphs_tab)
+end_dt_combo['values'] = tuple( [x[:-4] for x in get_reports.get_all_att_reports_list()  ] )
+end_dt_combo.current(0) #set the default on
+end_dt_combo.place(relx=0.3,x=100,y=250 )
 
+
+tab_4_label_range = Label(plot_graphs_tab, text="plot between this date range : ",width=25 ,height=2  ,font=('times', 15, ' bold ') ) 
+tab_4_label_range.place(relx=0.1,x=1,y=215 )
 ######################################### Tab 4 Functions ##############################
+def plot_a_p():
+    plot_graphs.plot_bar()
 
-
+def get_r_p():
+    plot_graphs.get_range_plot(start_dt_combo.get(),end_dt_combo.get())
     
 ######################################### Tab 4 Buttons ##############################
 
+plt_btn = Button(plot_graphs_tab, text="Plot Bar Graph of Attendances vs dates (All Time)", bg="orange", fg="white", command=plot_a_p, font=('times', 15, ' bold '))
+plt_btn.place(x=145, y=120 )
 
+plt_rane_btn = Button(plot_graphs_tab, text="Get graph", bg="orange", fg="white", command=get_r_p, font=('times', 8, ' bold '))
+plt_rane_btn.place(relx=0.5, x=0,y=240 )
 
 
 
