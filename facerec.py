@@ -165,6 +165,7 @@ def checkfile(report_date):
 def take_image(id):
     path = './images/'+id+'.jpg'
     print(path)
+    flag = 0
     while True:
         face_locations = []
         video_capture = cv2.VideoCapture(1)
@@ -209,6 +210,7 @@ def take_image(id):
                 cv2.imshow('save image ', img_temp)
                 cv2.imwrite(path,img_temp)
                 print("Image saved !")
+                flag = 1
                 break
             
 
@@ -217,8 +219,10 @@ def take_image(id):
 
         # Hit 'q' on the keyboard to quit!
         if cv2.waitKey(1) & 0xFF == ord('q'):
+            flag = -1
             break
 
     # Release handle to the webcam
     video_capture.release()
     cv2.destroyAllWindows()
+    return flag
