@@ -113,7 +113,7 @@ def track_image():
     else:
         # print(os.path.isfile("D:\Project new\FRAS\fras\attendance_reorts\10.xls"))
         print("attendance not given")
-        return 0
+        return -1
     
 
 
@@ -130,14 +130,14 @@ def give_attendance(datee,time,id):
                 break
         if exist_flag == True:
             print("Student already Taken Attendance!")
-            return 1
+            return -2
         else:
             #append at last
             print("Append to old exacel")
             length = len(df)
             df.loc[length]=[id,datee,time]
             df.to_csv(file_path,index=False)
-            return 2
+            return id
                 
     else:
         # creat a new df and create a file and add attendance
@@ -200,7 +200,7 @@ def take_image(id):
             # Draw a label with a name below the face
             cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
             font = cv2.FONT_HERSHEY_DUPLEX
-            cv2.putText(frame, "save image ? press 't'", (left + 6, bottom - 6), font, 0.8, (0, 0, 0), 1)
+            cv2.putText(frame, "save image ? press 'T'", (left + 6, bottom - 6), font, 0.8, (0, 0, 0), 1)
 
         if cv2.waitKey(1) & 0xFF == ord('t'):
             print("taking image !!")
@@ -212,6 +212,7 @@ def take_image(id):
                 print("Image saved !")
                 flag = 1
                 break
+            
             
 
         # Display the resulting image

@@ -144,12 +144,13 @@ tab_1_label_msg2.place(x=0,y=0 )
 
 def take_attendances():
     status = facerec.track_image()
-    if status == 0:
+    if status == -1:
         messagebox.showerror('No Attendance Given', 'Face is neither Recognized nor Detected')
-    elif status == 1:
+    elif status == -2:
         messagebox.showwarning('Already taken !', 'Student has already given attendance')
     else:
-        messagebox.showinfo('sucess ', 'Student has given attendance')
+        msg = status+' : student has given attendance'
+        messagebox.showinfo('sucess ',msg)
      
 
 
@@ -174,30 +175,44 @@ take_image_btn.place(relx=0.2,x=0,y=30 )
 
 
 #---------------------------------------------------------------------------------------------------------------------------------#
-#----------------------------------------------------3 GET REPORTS -----------------------------------------------------------------------#
+#----------------------------------------------------Tab 3 GET REPORTS -----------------------------------------------------------------------#
 #---------------------------------------------------------------------------------------------------------------------------------#
 ######################################### Tab 3 Widgets ##############################
 
 #Enter ID field
-tab_3_label_id = Label(get_reports_tab, text="Enter ID   : ",width=10  ,height=2  ,font=('times', 15, ' bold ') ) 
-tab_3_label_id.place(relx=0.2,x=-150,y=65 )
+# tab_3_label_id = Label(get_reports_tab, text="Enter ID   : ",width=10  ,height=2  ,font=('times', 15, ' bold ') ) 
+# tab_3_label_id.place(relx=0.2,x=-150,y=65 )
 
-tab_3_entry_id = Entry(get_reports_tab,width=10  ,bg="white" ,fg="red",font=('times', 15, ' bold '))
-tab_3_entry_id.place(relx=0.2,x=50,y=80 )
+# tab_3_entry_id = Entry(get_reports_tab,width=10  ,bg="white" ,fg="red",font=('times', 15, ' bold '))
+# tab_3_entry_id.place(relx=0.2,x=50,y=80 )
 
 
-reports_combo = ttk.Combobox(get_reports_tab)
-reports_combo['values'] = tuple( [x[:-4] for x in get_reports.get_all_att_reports_list()  ] )
-reports_combo.current(1) #set the default on 
-reports_combo.place(relx=0.2,x=100,y=200 )
+#specific day report store combo
+s_d_r_s_combo = ttk.Combobox(get_reports_tab)
+s_d_r_s_combo['values'] = tuple( [x[:-4] for x in get_reports.get_all_att_reports_list()  ] )
+s_d_r_s_combo.current(1) #set the default on 
+s_d_r_s_combo.place(relx=0.2,x=100,y=230 )
+#------------------------------
+tab_3_label_id = Label(get_reports_tab, text="Get Specific day report : ",width=20  ,height=2  ,font=('times', 15, ' bold ') ) 
+tab_3_label_id.place(relx=0.2,x=-150,y=215 )
 
-tab_3_label_id = Label(get_reports_tab, text="Get that day report : ",width=20  ,height=2  ,font=('times', 15, ' bold ') ) 
-tab_3_label_id.place(relx=0.2,x=-150,y=185 )
+
+#specific day Attendance percentage
+s_d_a_p_combo = ttk.Combobox(get_reports_tab)
+s_d_a_p_combo['values'] = tuple( [x[:-4] for x in get_reports.get_all_att_reports_list()  ] )
+s_d_a_p_combo.current(1) #set the default on 
+s_d_a_p_combo.place(relx=0.2,x=250,y=270 )
+#------------------------------
+tab_3_label_id = Label(get_reports_tab, text="Get Specific day Attendance percentage : ",width=30  ,height=2  ,font=('times', 15, ' bold ') ) 
+tab_3_label_id.place(relx=0.2,x=-150,y=255 )
+
+
+
 
 ######################################### Tab 3 Functions ##############################
 def get_t_percentage():
     percentage = get_reports.get_today_att_percentage()
-    messagebox.showinfo('sucess ', str(percentage))
+    messagebox.showinfo('sucess ', "Today Attendance Percentage is : "+str(percentage)+"%")
      
 
 
@@ -210,25 +225,45 @@ def get_rep_desk():
     if status == 1:
         messagebox.showinfo('sucess', "All reports are stored on Desktop in folder :: FRAS_ALL_REPORTS")
 
+
+def get_rep_all_avg():
+    status = get_reports.get_all_reports_avg()
+    status = "Average attendance percentage is : "+str(status)+"%"
+    messagebox.showinfo('sucess', status)
     
+
+def get_s_d_a_p():
+    res = s_d_a_p_combo.get()
+    statu = get_reports.get_specific_day_att_per(res)
+    messagebox.showinfo('status', statu)
+
+def get_s_d_a_r():
+    res = s_d_r_s_combo.get()
+    status = get_reports.get_specific_day_reports_desktop(res)
+    messagebox.showinfo('Status', status)
+
+
+
 ######################################### Tab 2 Buttons ##############################
 get_t_per_btn = Button(get_reports_tab, text="Get Today's Attendance Percentage", bg="red", fg="white", command=get_t_percentage, font=('times', 15, ' bold '))
-get_t_per_btn.place(relx=0.35,x=0,y=30 )
+get_t_per_btn.place(x=145,y=30 )
 
 get_rep_desk_btn = Button(get_reports_tab, text="Get All Reports to Desktop", bg="red", fg="white", command=get_rep_desk, font=('times', 15, ' bold '))
-get_rep_desk_btn.place(relx=0.35,x=0,y=50 )
+get_rep_desk_btn.place(x=145,y=100 )
+
+get_rep_perc_avg_btn = Button(get_reports_tab, text="Get Average attendance percentage", bg="red", fg="white", command=get_rep_all_avg, font=('times', 15, ' bold '))
+get_rep_perc_avg_btn.place(x=145,y=150 )
 
 
+get_rep_perc_avg_btn = Button(get_reports_tab, text="Get Percentage", bg="orange", fg="white", command=get_s_d_a_p, font=('times', 8, ' bold '))
+get_rep_perc_avg_btn.place(relx=0.5, x=0,y=270 )
 
+get_rep_perc_avg_btn = Button(get_reports_tab, text="Get Report", bg="orange", fg="white", command=get_s_d_a_r, font=('times', 8, ' bold '))
+get_rep_perc_avg_btn.place(relx=0.5,x=-150,y=230 )
 
-
-
-
-
-
-
-
-
+######## GET RANGE DAYS REPORTS -- > future implementation
+# get_rep_perc_avg_btn = Button(get_reports_tab, text="Get Report", bg="orange", fg="white", command=get_s_d_a_r, font=('times', 8, ' bold '))
+# get_rep_perc_avg_btn.place(relx=0.5,x=-150,y=230 )
 
 
 
