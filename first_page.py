@@ -21,7 +21,6 @@ tab_control = ttk.Notebook(window)
 enter_new_user_tab = ttk.Frame(tab_control)
 take_attendance_tab = ttk.Frame(tab_control)
 group_attendance_tab = ttk.Frame(tab_control)
-class_attendance_tab = ttk.Frame(tab_control)
 get_reports_tab = ttk.Frame(tab_control)
 edit_entries_tab = ttk.Frame(tab_control)
 plot_graphs_tab = ttk.Frame(tab_control)
@@ -32,15 +31,18 @@ plot_graphs_tab = ttk.Frame(tab_control)
 #add created tabs to tab controller
 tab_control.add(take_attendance_tab, text='  Take Attendance  ')
 tab_control.add(group_attendance_tab, text='  Group Attendance  ')
-tab_control.add(class_attendance_tab, text='  Entire Class Attendance  ')
 tab_control.add(enter_new_user_tab, text='  Enter New User  ')
 tab_control.add(get_reports_tab, text='  Get Repots  ')
 tab_control.add(plot_graphs_tab, text=' Plot Graphs  ')
 tab_control.add(edit_entries_tab, text=' Edit Entries  ')
 
 
+def funn():
+    global window
+    window.quit()
 
-
+take_group_att_btn = Button(window, text="Quit", bg="black", fg="white", command=funn, font=('times', 20, ' bold '))
+take_group_att_btn.place(relx=0.8, rely=0.8, x=0,y=30 )
 
 
 
@@ -118,6 +120,8 @@ def takeImage():
 
 take_image_btn = Button(enter_new_user_tab, text="Add User", bg="orange", fg="white", command=takeImage)
 take_image_btn.place(relx=0.2,x=50,y=160 )
+
+
 
 
 
@@ -378,9 +382,6 @@ take_group_att_btn.place(relx=0.2,x=0,y=30 )
 
 # take_image_btn = Button(take_attendance_tab, text="Take Image", bg="red", fg="white", command=take_attendances, font=('times', 15, ' bold '))
 # take_image_btn.place(relx=0.4,x=0,y=30 )
-
-
-
 
 
 
