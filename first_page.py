@@ -150,7 +150,7 @@ def take_attendances():
     elif status == -2:
         messagebox.showwarning('Already taken !', 'Student has already given attendance')
     else:
-        msg = status+' : student has given attendance'
+        msg = str(status)+' : student has given attendance'
         messagebox.showinfo('sucess ',msg)
      
 
