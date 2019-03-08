@@ -38,6 +38,7 @@ def save_encodings():
 
 
 def load_encodings():
+    status = ''
     global known_face_encodings
     global known_face_names
     #load pickle
@@ -98,23 +99,26 @@ def track_image():
         # Hit 'q' on the keyboard to quit!
         
         if cv2.waitKey(1) & 0xFF == ord('t'):
+            # print("Giving Attendance ",stu_att['id'])
+            if stu_att['id']!="Unknown":
+                status = give_attendance(stu_att['date'],stu_att['time'],stu_att['id'])
+                break
+
+        
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            status = -1
             break
     
     # Release handle to the webcam
     cv2.destroyAllWindows()
     video_capture.release()
-    ##Save student's attendance
-    if(stu_att['id']!="Unknown"):
-        print("Given Attendance  :): ",stu_att['id'])
-        status = give_attendance(stu_att['date'],stu_att['time'],stu_att['id'])
-        print(status)
 
-        return status
-    else:
-        # print(os.path.isfile("D:\Project new\FRAS\fras\attendance_reorts\10.xls"))
-        print("attendance not given")
-        return -1
-    
+    return (stu_att['id'],status)
+
+# -1 >> tremination
+# -2 >> Already given
+#  id >> Given att
+
 
 
 def give_attendance(datee,time,id):
@@ -124,8 +128,7 @@ def give_attendance(datee,time,id):
         #check if already taken attendance
         df = pd.read_csv(file_path)
         for x in df['id']:
-            if str(x)==id:
-                
+            if str(x)==id:  
                 exist_flag = True
                 break
         if exist_flag == True:

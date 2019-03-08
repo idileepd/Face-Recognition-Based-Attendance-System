@@ -143,8 +143,9 @@ take_image_btn.place(relx=0.2,x=50,y=160 )
 ins_tab1 = """
 Instructions : After clicking on "Take Attendance" button
     1. Place your face infront of camera it will show your face
-    2. Adjust your face to get your rollnumber
-    3. Then press  'Q'  to take attencance
+    2. Adjust your face to get your rollnumber, If you can see your rollnumber
+    3. Then press  'T'  to take attencance
+    4. If you want quit from taking press 'Q'
 
 """
 tab_1_label_msg2 = Label(take_attendance_tab, text=ins_tab1, width=60, height=15, font=('times', 15, ' bold ') ) 
@@ -153,13 +154,15 @@ tab_1_label_msg2.place(x=0,y=0 )
 ######################################### Tab 1 Functions ##############################
 
 def take_attendances():
-    status = facerec.track_image()
+    Id,status = facerec.track_image()
     if status == -1:
-        messagebox.showerror('No Attendance Given', 'Face is neither Recognized nor Detected')
+        messagebox.showerror('No Attendance Given', 'Terminated by user')
     elif status == -2:
-        messagebox.showwarning('Already taken !', 'Student has already given attendance')
+        messagebox.showwarning('Already taken', str(Id)+': Student has already given attendance')
+    # elif status == -3:
+    #     messagebox.showwarning('Already taken', 'Student has already given attendance')
     else:
-        msg = str(status)+' : student has given attendance'
+        msg = str(Id)+' : Student has given attendance'
         messagebox.showinfo('sucess ',msg)
      
 
