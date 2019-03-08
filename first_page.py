@@ -8,8 +8,8 @@ import plot_graphs
 
 window = Tk()
 window.title("FRAS")
-window.geometry('550x400')
-# window.attributes("-fullscreen",True)
+# window.geometry('550x400')
+window.attributes("-fullscreen",True)
 
 ####################################################################################
 ########################### Create TabController #####################################
@@ -279,22 +279,26 @@ get_rep_perc_avg_btn.place(relx=0.5,x=-150,y=230 )
 start_dt_combo = ttk.Combobox(plot_graphs_tab)
 start_dt_combo['values'] = tuple( [x[:-4] for x in get_reports.get_all_att_reports_list()  ] )
 start_dt_combo.current(0) #set the default on 
-start_dt_combo.place(relx=0.3,x=100,y=230 )
+start_dt_combo.place(relx=0.3,x=55,y=230 )
 #------------------------------
 end_dt_combo = ttk.Combobox(plot_graphs_tab)
 end_dt_combo['values'] = tuple( [x[:-4] for x in get_reports.get_all_att_reports_list()  ] )
 end_dt_combo.current(0) #set the default on
-end_dt_combo.place(relx=0.3,x=100,y=250 )
+end_dt_combo.place(relx=0.3,x=55,y=250 )
 
 
-tab_4_label_range = Label(plot_graphs_tab, text="plot between this date range : ",width=25 ,height=2  ,font=('times', 15, ' bold ') ) 
+tab_4_label_range = Label(plot_graphs_tab, text="Plot Graph  between this date range : ",width=25 ,height=2  ,font=('times', 15, ' bold ') ) 
 tab_4_label_range.place(relx=0.1,x=1,y=215 )
 ######################################### Tab 4 Functions ##############################
 def plot_a_p():
     plot_graphs.plot_bar()
 
 def get_r_p():
-    plot_graphs.get_range_plot(start_dt_combo.get(),end_dt_combo.get())
+    status = plot_graphs.get_range_plot(start_dt_combo.get(),end_dt_combo.get())
+    if status == -1:
+        messagebox.showinfo('Status', "Enter valid range!")
+
+
     
 ######################################### Tab 4 Buttons ##############################
 

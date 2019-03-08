@@ -44,57 +44,68 @@ def checkdates(x,y):
         return False
 
 def get_range_plot(start, end):
- 
-    start_dt = start
-    end_dt = end   
-    start_dt = get_as_date(start_dt)
-    end_dt = get_as_date(end_dt)
-    if(start_dt>end_dt):
-        print("Entered")
-        temp = start_dt
-        start_dt = end_dt
-        end_dt = temp
-        #swap dates too
-        t = start
-        start = end
-        end = t
+    if checklen(start,end):
 
-    print("Out")
-    # print("sad")
-    global dates
-    global percentages
-    print(start,end)
-    print(start<end)
+        start_dt = start
+        end_dt = end   
+        start_dt = get_as_date(start_dt)
+        end_dt = get_as_date(end_dt)
+        if(start_dt>end_dt):
+            print("Entered")
+            temp = start_dt
+            start_dt = end_dt
+            end_dt = temp
+            #swap dates too
+            t = start
+            start = end
+            end = t
 
-    if  (start_dt<end_dt) and (end_dt-start_dt).days >0:
-        start_index =0
-        end_index = 0 
-        print("Entered")
-        #find starting date index
-        for index,date in  enumerate(get_reports.get_all_att_reports_list()):
-            if date[:-4] == start:
-                start_index =index
-                break
-        #find Ending date index
-        for index,date in enumerate(get_reports.get_all_att_reports_list()):
-            if date[:-4] == end:
-                end_index =index
-                break
-        temp_list = get_reports.get_all_att_reports_list()
-        temp_list = temp_list[start_index:end_index+1] 
-        for date in temp_list:
-            dates.append(date[:-4])
-        for date in dates:
-            percentages.append(get_reports.get_desday_att_percentage(date))
-        plot_range(dates,percentages)
-        dates.clear()
-        percentages.clear()
-        print("done ")
-    return 1
+        print("Out")
+        # print("sad")
+        global dates
+        global percentages
+        print(start,end)
+        print(start<end)
+
+        if  (start_dt<end_dt) and (end_dt-start_dt).days >0 :
+            start_index =0
+            end_index = 0 
+            print("Entered")
+            #find starting date index
+            for index,date in  enumerate(get_reports.get_all_att_reports_list()):
+                if date[:-4] == start:
+                    start_index =index
+                    break
+            #find Ending date index
+            for index,date in enumerate(get_reports.get_all_att_reports_list()):
+                if date[:-4] == end:
+                    end_index =index
+                    break
+            temp_list = get_reports.get_all_att_reports_list()
+            temp_list = temp_list[start_index:end_index+1] 
+            for date in temp_list:
+                dates.append(date[:-4])
+            for date in dates:
+                percentages.append(get_reports.get_desday_att_percentage(date))
+            plot_range(dates,percentages)
+            dates.clear()
+            percentages.clear()
+            print("done ")
+            return 1
+        else:
+            return -1
+    else:
+        return -1
 
 def get_as_date(st):
     return datetime.date(int(st[:4]), int(st[5:7]), int(st[8:]))
 
+
+def checklen(start,end):
+    if len(start)==10 and len(end)==10:
+        return True
+    else:
+        return False
 
 def plot_range(dates,percentages):
     index = np.arange(len(dates))
@@ -105,10 +116,6 @@ def plot_range(dates,percentages):
     plt.title('Custom dates range attendance percentage bargraph')
     plt.ion()    
     plt.show()
-    # plt.close()
-    
-
-    return 1
 
 # get_range_plot('2019-03-06','2019-03-07')
 
