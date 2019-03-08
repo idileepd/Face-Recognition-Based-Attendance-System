@@ -24,7 +24,8 @@ window.attributes("-fullscreen",True)
 # 4. Report Generation
 # 5. Graph Generation
 # 6. Edit Attendance Entries
-# 7. Change Password 
+# 7. Manual Attendance entry (incase of twins)
+# 8. Change Password 
 
 
 #main tab controller
@@ -39,6 +40,7 @@ delete_student_tab = ttk.Frame(tab_control)
 reports_generation_tab = ttk.Frame(tab_control)
 graph_generation_tab = ttk.Frame(tab_control)
 edit_attendance_entries_tab = ttk.Frame(tab_control)
+manual_attendance_tab = ttk.Frame(tab_control)
 change_password_tab = ttk.Frame(tab_control)
 
 
@@ -50,7 +52,11 @@ tab_control.add(add_new_student_tab, text='  Add New Student  ')
 tab_control.add(delete_student_tab, text='  Delete Student  ')
 tab_control.add(reports_generation_tab, text='  Generate Reports  ')
 tab_control.add(graph_generation_tab, text=' Generate Graphs  ')
+tab_control.add(manual_attendance_tab, text=' Manual Attendance Entry  ')
 tab_control.add(change_password_tab, text=' Change Password  ')
+
+
+
 
 
 # to quit from app
@@ -406,45 +412,6 @@ plt_btn.place(x=145, y=120 )
 
 plt_rane_btn = Button(graph_generation_tab, text="Get graph", bg="orange", fg="white", command=get_r_p, font=('times', 8, ' bold '))
 plt_rane_btn.place(relx=0.5, x=0,y=240 )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
