@@ -19,6 +19,8 @@ tab_control = ttk.Notebook(window)
 #add new Tabs
 enter_new_user_tab = ttk.Frame(tab_control)
 take_attendance_tab = ttk.Frame(tab_control)
+group_attendance_tab = ttk.Frame(tab_control)
+class_attendance_tab = ttk.Frame(tab_control)
 get_reports_tab = ttk.Frame(tab_control)
 edit_entries_tab = ttk.Frame(tab_control)
 plot_graphs_tab = ttk.Frame(tab_control)
@@ -28,6 +30,8 @@ plot_graphs_tab = ttk.Frame(tab_control)
 
 #add created tabs to tab controller
 tab_control.add(take_attendance_tab, text='  Take Attendance  ')
+tab_control.add(group_attendance_tab, text='  Group Attendance  ')
+tab_control.add(class_attendance_tab, text='  Entire Class Attendance  ')
 tab_control.add(enter_new_user_tab, text='  Enter New User  ')
 tab_control.add(get_reports_tab, text='  Get Repots  ')
 tab_control.add(plot_graphs_tab, text=' Plot Graphs  ')
@@ -329,18 +333,16 @@ plt_rane_btn.place(relx=0.5, x=0,y=240 )
 
 
 #---------------------------------------------------------------------------------------------------------------------------------#
-#----------------------------------------------------TAB 5 EDIT ENTRIES -----------------------------------------------------------------------#
+#----------------------------------------------------TAB 1.2 Group Attendance ENTRIES -----------------------------------------------------------------------#
 #---------------------------------------------------------------------------------------------------------------------------------#
-######################################### Tab 5 Widgets ##############################
+######################################### Tab 1.2 Widgets ##############################
 
 
-######################################### Tab 5 Functions ##############################
+######################################### Tab 1.2 Functions ##############################
 
 
     
-######################################### Tab 5 Buttons ##############################
-tab4_btn_get_last_entry = Button(edit_entries_tab, text="Get Last Entry of Today Attendance", bg="red", fg="white", command=get_t_percentage, font=('times', 15, ' bold '))
-tab4_btn_get_last_entry.place(relx=0.35,x=0,y=30 )
+######################################### Tab 1.2 Buttons ##############################
 
 
 
