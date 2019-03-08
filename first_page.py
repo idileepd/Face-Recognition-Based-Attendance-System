@@ -4,6 +4,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 import plot_graphs
+import group_attendance
 
 
 window = Tk()
@@ -337,12 +338,78 @@ plt_rane_btn.place(relx=0.5, x=0,y=240 )
 #---------------------------------------------------------------------------------------------------------------------------------#
 ######################################### Tab 1.2 Widgets ##############################
 
+ins_tab1 = """
+Instructions : After clicking on "Take Attendance" button
 
+    1. Place your face infront of camera it will show your face
+    2. Adjust your face to get your rollnumber
+    3. Do 1,2 steps for each person 
+    4. Then press  'T'  to take attencance for all people
+    5. Press 'Q' if you want quit from taking attendance
+
+"""
+tab_1_label_msg2 = Label(group_attendance_tab, text=ins_tab1, width=60, height=15, font=('times', 15, ' bold ') ) 
+tab_1_label_msg2.place(x=0,y=0 )
 ######################################### Tab 1.2 Functions ##############################
 
+# def taker_attendances():
+#     status = facerec.track_image()
+#     if status == -1:
+#         messagebox.showerror('No Attendance Given', 'Face is neither Recognized nor Detected')
+#     elif status == -2:
+#         messagebox.showwarning('Already taken !', 'Student has already given attendance')
+#     else:
+#         msg = str(status)+' : student has given attendance'
+#         messagebox.showinfo('sucess ',msg)
+
+def take_group_att():
+    status = group_attendance.take_group_attendance()
+    if status == -1:
+        messagebox.showerror('No Attendance Given', 'Terminated by user !')
+    else:
+        messagebox.showinfo('sucess ',status)
 
     
 ######################################### Tab 1.2 Buttons ##############################
+
+
+take_group_att_btn = Button(group_attendance_tab, text="Take Group Attendance", bg="red", fg="white", command=take_group_att, font=('times', 15, ' bold '))
+take_group_att_btn.place(relx=0.2,x=0,y=30 )
+
+# take_image_btn = Button(take_attendance_tab, text="Take Image", bg="red", fg="white", command=take_attendances, font=('times', 15, ' bold '))
+# take_image_btn.place(relx=0.4,x=0,y=30 )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

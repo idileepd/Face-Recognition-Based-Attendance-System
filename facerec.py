@@ -97,7 +97,7 @@ def track_image():
         cv2.imshow('Video', frame)
         # Hit 'q' on the keyboard to quit!
         
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        if cv2.waitKey(1) & 0xFF == ord('t'):
             break
     
     # Release handle to the webcam
@@ -202,6 +202,10 @@ def take_image(id):
             font = cv2.FONT_HERSHEY_DUPLEX
             cv2.putText(frame, "save image ? press 'T'", (left + 6, bottom - 6), font, 0.8, (0, 0, 0), 1)
 
+
+        # Display the resulting image
+        cv2.imshow('Video', frame)
+
         if cv2.waitKey(1) & 0xFF == ord('t'):
             print("taking image !!")
             if(len(face_locations)) ==1:
@@ -212,14 +216,9 @@ def take_image(id):
                 print("Image saved !")
                 flag = 1
                 break
-            
-            
-
-        # Display the resulting image
-        cv2.imshow('Video', frame)
 
         # Hit 'q' on the keyboard to quit!
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        elif cv2.waitKey(1) & 0xFF == ord('q'):
             flag = -1
             break
 
