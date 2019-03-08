@@ -52,6 +52,11 @@ def load_encodings():
         # print(face_encodes)
         known_face_encodings = face_encodes
 
+
+
+
+
+
 def track_image():
     load_encodings() #first load image encodings 
     video_capture = cv2.VideoCapture(1)
@@ -94,8 +99,13 @@ def track_image():
             cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
             font = cv2.FONT_HERSHEY_DUPLEX
             cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
+        
+        
+        # Full screen window
+        cv2.namedWindow("window", cv2.WND_PROP_FULLSCREEN)
+        cv2.setWindowProperty("window",cv2.WND_PROP_FULLSCREEN,cv2.WINDOW_FULLSCREEN)
         # Display the resulting image
-        cv2.imshow('Video', frame)
+        cv2.imshow('window', frame)
         # Hit 'q' on the keyboard to quit!
         
         if cv2.waitKey(1) & 0xFF == ord('t'):
@@ -206,8 +216,11 @@ def take_image(id):
             cv2.putText(frame, "save image ? press 'T'", (left + 6, bottom - 6), font, 0.8, (0, 0, 0), 1)
 
 
+        # Full screen window
+        cv2.namedWindow("window", cv2.WND_PROP_FULLSCREEN)
+        cv2.setWindowProperty("window",cv2.WND_PROP_FULLSCREEN,cv2.WINDOW_FULLSCREEN)
         # Display the resulting image
-        cv2.imshow('Video', frame)
+        cv2.imshow('window', frame)
 
         if cv2.waitKey(1) & 0xFF == ord('t'):
             print("taking image !!")

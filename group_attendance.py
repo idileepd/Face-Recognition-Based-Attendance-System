@@ -79,8 +79,13 @@ def take_group_attendance():
             cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
             font = cv2.FONT_HERSHEY_DUPLEX
             cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
+        
+        
+        # Full screen window
+        cv2.namedWindow("window", cv2.WND_PROP_FULLSCREEN)
+        cv2.setWindowProperty("window",cv2.WND_PROP_FULLSCREEN,cv2.WINDOW_FULLSCREEN)
         # Display the resulting image
-        cv2.imshow('Video', frame)
+        cv2.imshow('window', frame)
 
 
         if cv2.waitKey(1) & 0xFF == ord('t'):
