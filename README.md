@@ -23,7 +23,11 @@ Face Recognition attendance system
   conda config --add channels conda-forge
   conda install numpy
   conda install scipy 
-  conda install dlib<br />  </code><code>pip install --no-dependencies face_recognition<br />  conda install -c akode face_recognition_models<br />  pip install pandas<br />  pip install matplotlib<br />  pip install Pillow</code></pre>
+  conda install dlib
+  pip install --no-dependencies face_recognition
+  conda install -c akode face_recognition_models
+  pip install pandas<br />  pip install matplotlib
+  pip install Pillow</code></pre>
 <pre><code>&nbsp;</code></pre>
 <p><span style="font-size: 15pt;">Running&nbsp;</span></p>
 <p>&nbsp; &nbsp;Just open terminal and switch to environment(py36) in anaconda</p>
