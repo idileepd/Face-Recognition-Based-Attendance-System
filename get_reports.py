@@ -10,8 +10,8 @@ import shutil
 def get_today_att_percentage():
     ts = time.time()
     date = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
-    csv_file_path = './reports/'+date+'.csv'
-    pickle_file_path = './encodings/face_names.pkl'
+    csv_file_path = './Data/reports/'+date+'.csv'
+    pickle_file_path = './Data/encodings/face_names.pkl'
     x = int()
     y = int() 
     if checkfile(csv_file_path):
@@ -41,7 +41,7 @@ def get_total_col(csv_path):
 #return as list contain attendace taken dates
 def get_all_att_reports_list():
     reports_list = []
-    directory = './reports'
+    directory = './Data/reports'
     for filename in os.listdir(directory):
         if filename.endswith(".csv"):
             reports_list.append(filename)
@@ -64,7 +64,7 @@ def get_all_reports_desktop():
 
     os.mkdir(desktop_path)
     for file_name in get_all_att_reports_list():
-        shutil.copy2('./reports/'+file_name, desktop_path)
+        shutil.copy2('./Data/reports/'+file_name, desktop_path)
     return 1
 
 
@@ -84,8 +84,8 @@ def get_all_reports_avg():
 
 
 def get_desday_att_percentage(date):
-    csv_file_path = './reports/'+date+'.csv'
-    pickle_file_path = './encodings/face_names.pkl'
+    csv_file_path = './Data/reports/'+date+'.csv'
+    pickle_file_path = './Data/encodings/face_names.pkl'
     x = int()
     y = int() 
     if checkfile(csv_file_path):
@@ -105,7 +105,7 @@ def get_desday_att_percentage(date):
 
 
 def get_specific_day_att_per(date):
-    if checkfile('./reports/'+date+'.csv'):
+    if checkfile('./Data/reports/'+date+'.csv'):
         return get_desday_att_percentage(date)
     else:
         return "Report not exist !"
@@ -114,7 +114,7 @@ def get_specific_day_att_per(date):
 def get_specific_day_reports_desktop(date):
     desktop_path = os.path.expanduser("~\\Desktop")
     desktop_path = desktop_path + '\\'+date+'.csv'
-    file_path = "./reports/"+date+".csv"
+    file_path = "./Data/reports/"+date+".csv"
     if os.path.isdir(desktop_path): 
         shutil.rmtree(desktop_path)
     if checkfile(file_path):

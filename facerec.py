@@ -13,7 +13,7 @@ import time
 ##########################################################################################################
 
 def checkfile(report_date):
-    file_path = './reports/'+report_date
+    file_path = './Data/reports/'+report_date
     if(os.path.isfile(file_path)):
         return True
     else:
@@ -22,17 +22,17 @@ def checkfile(report_date):
 
 def update_encodes_and_names(kfe,kfn):
     print("replacing old Encodes files")
-    with open("./encodings/face_encodes.pkl", "wb") as f:
+    with open("./Data/encodings/face_encodes.pkl", "wb") as f:
         pickle.dump(kfe,f)
         print("encodings replaced")
 
-    with open("./encodings/face_names.pkl", "wb") as f:
+    with open("./Data/encodings/face_names.pkl", "wb") as f:
         pickle.dump(kfn,f)
         print("names replaced")
     
 
 def check_encode_files():
-    if os.path.isfile("./encodings/face_names.pkl") and os.path.isfile("./encodings/face_encodes.pkl") :
+    if os.path.isfile("./Data/encodings/face_names.pkl") and os.path.isfile("./Data/encodings/face_encodes.pkl") :
         return True
     else:
         return False    
@@ -42,11 +42,11 @@ def get_all_encodings():
     known_face_names = []
     ## check is file there or not 
     if check_encode_files() :
-        with open("./encodings/face_names.pkl", "rb") as f:
+        with open("./Data/encodings/face_names.pkl", "rb") as f:
             face_names = pickle.load(f)
             # print(face_names)
             known_face_names = face_names
-        with open("./encodings/face_encodes.pkl", "rb") as f:
+        with open("./Data/encodings/face_encodes.pkl", "rb") as f:
             face_encodes = pickle.load(f)
             # print(face_encodes)
             known_face_encodings = face_encodes
@@ -63,7 +63,7 @@ def get_img_encoding(image_path):
 
 
 def give_attendance(datee,time,id):
-    file_path = './reports/'+datee+'.csv'
+    file_path = './Data/reports/'+datee+'.csv'
     exist_flag = False
     if(checkfile(datee+'.csv')):
         #check if already taken attendance
@@ -199,7 +199,7 @@ def take_student_attendance():
 
 
 def add_student_encodes_and_name(id):
-    image_path = './images/'+id+'.jpg'
+    image_path = str(id)+'.jpg'
     kfe,kfn = get_all_encodings()
     loc_index = -1
 
@@ -226,7 +226,7 @@ def add_student_encodes_and_name(id):
 
 
 def save_image(id):
-    path = './images/'+id+'.jpg'
+    path = str(id)+'.jpg'
     flag = 0
     while True:
         face_locations = []
