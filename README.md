@@ -1,4 +1,4 @@
-# fras
+# FRAS
 Face Recognition attendance system
 
 
@@ -28,7 +28,7 @@ Face Recognition attendance system
   conda install -c akode face_recognition_models
   pip install pandas<br />  pip install matplotlib
   pip install Pillow</code></pre>
-<pre><code>&nbsp;</code></pre>
+  
 <p><span style="font-size: 15pt;">Running&nbsp;</span></p>
 <p>&nbsp; &nbsp;Just open terminal and switch to environment(py36) in anaconda</p>
 <p>&nbsp; &nbsp;run this&nbsp; <strong>python firstpage.py&nbsp;</strong></p>
