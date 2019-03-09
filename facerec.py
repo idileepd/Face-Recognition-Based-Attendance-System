@@ -213,12 +213,14 @@ def add_student_encodes_and_name(id):
         kfe[loc_index]= get_img_encoding(image_path)
         update_encodes_and_names(kfe,kfn)
         # delete_image(image_path)
+        os.remove(image_path)
         return str(id)+" : Student sucessfully updated"
     else:
         kfe.append(get_img_encoding(image_path))
         kfn.append(id)
         update_encodes_and_names(kfe,kfn)
         # delete_image(image_path)
+        os.remove(image_path)
         return str(id)+" : Student Sucessfully Added"
 
 
@@ -287,6 +289,8 @@ def save_image(id):
     # Release handle to the webcam
     video_capture.release()
     cv2.destroyAllWindows()
+    #delete temp image
+    os.remove('temp_img.jpg')
     return flag
 
 

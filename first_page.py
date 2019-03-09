@@ -72,6 +72,25 @@ take_group_att_btn.place(relx=0.8, rely=0.8, x=0,y=30 )
 
 
 
+
+########################################################################################################################################
+####################################################### UTILITIES  #####################################################################
+########################################################################################################################################
+all_dates_reports =  [x[:-4] for x in get_reports.get_all_att_reports_list()  ] 
+all_dates_reports.insert(0,'select date')
+all_dates_reports = tuple(all_dates_reports)
+
+
+
+
+
+
+
+
+
+
+
+
 ###-----------------------------------------------------------------------------------------------------------------------------###
 ###-----------------------------------------Create widgets to add Tabs ---------------------------------------------------------###
 ###-----------------------------------------------------------------------------------------------------------------------------###
@@ -300,8 +319,9 @@ take_image_btn.place(relx=0.2,x=50,y=140 )
 
 #specific day report store combo
 s_d_r_s_combo = ttk.Combobox(reports_generation_tab)
-s_d_r_s_combo['values'] = tuple( [x[:-4] for x in get_reports.get_all_att_reports_list()  ] )
-s_d_r_s_combo.current(1) #set the default on 
+
+s_d_r_s_combo['values'] = all_dates_reports
+s_d_r_s_combo.current(0) #set the default on 
 s_d_r_s_combo.place(relx=0.2,x=100,y=230 )
 
 tab_3_label_id = Label(reports_generation_tab, text="Get Specific day report : ",width=20  ,height=2  ,font=('times', 15, ' bold ') ) 
@@ -310,8 +330,8 @@ tab_3_label_id.place(relx=0.2,x=-150,y=215 )
 
 #specific day Attendance percentage
 s_d_a_p_combo = ttk.Combobox(reports_generation_tab)
-s_d_a_p_combo['values'] = tuple( [x[:-4] for x in get_reports.get_all_att_reports_list()  ] )
-s_d_a_p_combo.current(1) #set the default on 
+s_d_a_p_combo['values'] = all_dates_reports
+s_d_a_p_combo.current(0) #set the default on 
 s_d_a_p_combo.place(relx=0.2,x=250,y=270 )
 
 tab_3_label_id = Label(reports_generation_tab, text="Get Specific day Attendance percentage : ",width=30  ,height=2  ,font=('times', 15, ' bold ') ) 
@@ -375,26 +395,28 @@ get_rep_perc_avg_btn.place(relx=0.5,x=-150,y=230 )
 
 
 
-#########################################################################################################################################
-####################################################### Tab 5 - Generate Graphs ########################################################
-#########################################################################################################################################
-######################################### Tab 4 Widgets ##############################
+##################################################################################################################################################
+####################################################### Tab 5 - Generate Graphs ##################################################################
+##################################################################################################################################################
+####------------------------------------------------------Tab 5  (Generate Graphs) Widgets ------------------------------------------------####
+
 
 #specific Start day  store combo
 start_dt_combo = ttk.Combobox(graph_generation_tab)
-start_dt_combo['values'] = tuple( [x[:-4] for x in get_reports.get_all_att_reports_list()  ] )
+start_dt_combo['values'] = all_dates_reports
 start_dt_combo.current(0) #set the default on 
 start_dt_combo.place(relx=0.3,x=55,y=230 )
 
 end_dt_combo = ttk.Combobox(graph_generation_tab)
-end_dt_combo['values'] = tuple( [x[:-4] for x in get_reports.get_all_att_reports_list()  ] )
+end_dt_combo['values'] = all_dates_reports
 end_dt_combo.current(0) #set the default on
 end_dt_combo.place(relx=0.3,x=55,y=250 )
 
 
 tab_4_label_range = Label(graph_generation_tab, text="Plot Graph  between this date range : ",width=25 ,height=2  ,font=('times', 15, ' bold ') ) 
 tab_4_label_range.place(relx=0.1,x=1,y=215 )
-######################################### Tab 4 Functions ##############################
+####------------------------------------------------------Tab 5  (Generate Graphs) functions ------------------------------------------------####
+
 def plot_a_p():
     plot_graphs.plot_bar()
 
@@ -405,7 +427,8 @@ def get_r_p():
 
 
     
-######################################### Tab 4 Buttons ##############################
+####------------------------------------------------------Tab 5  (Generate Graphs) buttons ------------------------------------------------####
+
 
 plt_btn = Button(graph_generation_tab, text="Plot Bar Graph of Attendances vs dates (All Time)", bg="orange", fg="white", command=plot_a_p, font=('times', 15, ' bold '))
 plt_btn.place(x=145, y=120 )
