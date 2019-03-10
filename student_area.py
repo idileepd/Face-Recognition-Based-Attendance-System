@@ -32,6 +32,7 @@ tab_control = ttk.Notebook(window)
 #create frames
 take_attendance_tab = ttk.Frame(tab_control)
 group_attendance_tab = ttk.Frame(tab_control)
+auto_attendance_tab = ttk.Frame(tab_control)
 
 
 
@@ -39,6 +40,8 @@ group_attendance_tab = ttk.Frame(tab_control)
 #add frames to tab controller
 tab_control.add(take_attendance_tab, text='  Take Attendance  ')
 tab_control.add(group_attendance_tab, text=' Take Group Attendance  ')
+tab_control.add(auto_attendance_tab, text=' Auto Attendance  ')
+
 
 
 
@@ -157,6 +160,37 @@ def take_group_attendance():
 take_grp_att_btn = Button(group_attendance_tab, text="Take Group Attendance", bg="red", fg="white", command=take_group_attendance, font=('times', 15, ' bold '))
 take_grp_att_btn.place(relx=0.2,x=0,y=30 )
 
+
+
+########################################################################################################################################
+####################################################### Tab 2 - Group Attendance #######################################################
+########################################################################################################################################
+
+####------------------------------------------------Tab 2 Widgets  -----------------------------------------------------####
+instructions_tab3 = """
+Instructions : After clicking on "Take Attendance" button
+    1. Place your face infront of camera it will show your face
+    2. Adjust your face to get your rollnumber and attendance will be automatically given
+    3. Do 1,2 steps for each person 
+    5. Press 'Q' if you want quit from taking attendance
+"""
+
+tab1_ins_label = Label(auto_attendance_tab, text=instructions_tab3, width=60, height=15, font=('times', 15, ' bold ') ) 
+tab1_ins_label.place(x=0,y=0 )
+
+
+####------------------------------------------------Tab 2 Functions  -----------------------------------------------------####
+
+def take_auto_attendance_fun():
+    messagebox.showinfo("Auto Attendance", "Press 'Q' if you want to  stop taking attnedance")
+    facerec.take_auto_attendance()
+
+
+
+####------------------------------------------------Tab 2 Buttons  -----------------------------------------------------####
+
+take_auto_att_btn = Button(auto_attendance_tab, text="Take Auto Attendance", bg="red", fg="white", command=take_auto_attendance_fun, font=('times', 15, ' bold '))
+take_auto_att_btn.place(relx=0.2,x=0,y=30 )
 
 
 

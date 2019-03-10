@@ -27,7 +27,12 @@ Face Recognition attendance system
   pip install --no-dependencies face_recognition
   conda install -c akode face_recognition_models
   pip install pandas<br />  pip install matplotlib
-  pip install Pillow</code></pre>
+  pip install Pillow
+  
+  pip install pyttsx3
+  pip install pypiwin32
+  
+  </code></pre>
   
 <p><span style="font-size: 15pt;">Running&nbsp;</span></p>
 <p>&nbsp; &nbsp;Just open terminal and switch to environment(py36) in anaconda</p>
