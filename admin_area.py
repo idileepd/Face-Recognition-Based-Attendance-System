@@ -51,7 +51,7 @@ add_new_student_tab = ttk.Frame(tab_control)
 delete_student_tab = ttk.Frame(tab_control)
 reports_generation_tab = ttk.Frame(tab_control)
 graph_generation_tab = ttk.Frame(tab_control)
-edit_attendance_entries_tab = ttk.Frame(tab_control)
+remove_entries_tab = ttk.Frame(tab_control)
 manual_attendance_tab = ttk.Frame(tab_control)
 change_password_tab = ttk.Frame(tab_control)
 
@@ -73,7 +73,7 @@ tab_control.add(delete_student_tab, text='  Delete Student  ')
 tab_control.add(reports_generation_tab, text='  Generate Reports  ')
 tab_control.add(graph_generation_tab, text=' Generate Graphs  ')
 tab_control.add(manual_attendance_tab, text=' Manual Attendance Entry  ')
-tab_control.add(edit_attendance_entries_tab, text=' Edit Latest attendance Entries ')
+tab_control.add(remove_entries_tab, text=' Edit Latest attendance Entries ')
 tab_control.add(change_password_tab, text=' Change Password  ')
 
 
@@ -533,14 +533,14 @@ manual_attendance_btn.place(relx=0.2,x=50,y=140 )
 
 
 ##################################################################################################################################################
-####################################################### Tab 8 - edit entries  ##################################################################
+####################################################### Tab 8 - remove entries  ##################################################################
 ##################################################################################################################################################
-####------------------------------------------------------Tab 8  (edit entries) Widgets ------------------------------------------------####
+####------------------------------------------------------Tab 8  (remove entries) Widgets ------------------------------------------------####
 
-tree = ttk.Treeview(edit_attendance_entries_tab, selectmode='browse')
+tree = ttk.Treeview(remove_entries_tab, selectmode='browse')
 tree.place(x=30, y=60)
 
-vsb = ttk.Scrollbar(edit_attendance_entries_tab, orient="vertical", command=tree.yview)
+vsb = ttk.Scrollbar(remove_entries_tab, orient="vertical", command=tree.yview)
 vsb.place(x=0, y=60, height=200+20)
 
 tree.configure(yscrollcommand=vsb.set)
@@ -563,7 +563,7 @@ tree.heading("4", text="Time")
 
 
 
-####------------------------------------------------------Tab 8  (edit entries) functions ------------------------------------------------####
+####------------------------------------------------------Tab 8  (remove entries) functions ------------------------------------------------####
 def create_table():
     print("Create table")
     index, id, date, time = facerec.get_all_entries_today()
@@ -596,11 +596,11 @@ def recreate_tabel():
     create_table()
 
 
-####------------------------------------------------------Tab 8  (edit entries) functions ------------------------------------------------####
+####------------------------------------------------------Tab 8  (remove entries) buttons ------------------------------------------------####
 
 
 
-remove_enrty_btn = Button(edit_attendance_entries_tab, text="Remove Entry", bg="orange", fg="white", command=delete_entry_fun)
+remove_enrty_btn = Button(remove_entries_tab, text="Remove Entry", bg="orange", fg="white", command=delete_entry_fun)
 remove_enrty_btn.place(relx=0.4,x=50,y=300 )
 
 
