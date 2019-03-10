@@ -19,6 +19,13 @@ window.attributes("-fullscreen",True)
 
 
 
+
+
+
+
+
+
+
 #######################################################################################################################################
 ####################################################### Create TAB Controller  ########################################################
 #######################################################################################################################################
@@ -47,6 +54,14 @@ graph_generation_tab = ttk.Frame(tab_control)
 edit_attendance_entries_tab = ttk.Frame(tab_control)
 manual_attendance_tab = ttk.Frame(tab_control)
 change_password_tab = ttk.Frame(tab_control)
+
+
+
+
+############## Scroll
+# scrollbar = Scrollbar(edit_attendance_entries_tab)
+# scrollbar.pack(side=RIGHT, fill=Y)
+
 
 
 
@@ -86,6 +101,17 @@ take_group_att_btn.place(relx=0.8, rely=0.8, x=0,y=30 )
 all_dates_reports =  [x[:-4] for x in get_reports.get_all_att_reports_list()  ] 
 all_dates_reports.insert(0,'select date')
 all_dates_reports = tuple(all_dates_reports)
+
+
+screen_width = window.winfo_screenwidth()
+screen_height = window.winfo_screenheight()
+
+# screen_width = edit_attendance_entries_tab.winfo_screenwidth()
+# screen_height = edit_attendance_entries_tab.winfo_screenheight()
+
+# print(screen_height)
+# print(screen_width)
+
 
 
 
@@ -136,6 +162,7 @@ def take_student_attendance():
     else:
         msg = str(Id)+' : Student has given attendance'
         messagebox.showinfo('sucess ',msg)
+        recreate_tabel() # to recreate table in Edit entries tab
 
 
 
@@ -181,6 +208,8 @@ def take_group_attendance():
         messagebox.showerror('No Attendance Given', 'Terminated by user !')
     else:
         messagebox.showinfo('sucess ',status)
+        recreate_tabel() # to recreate table in Edit entries tab
+
 
 
 
@@ -299,8 +328,8 @@ def delete_student():
 
 ####------------------------------------------------------Tab 2 Widgets (Add User) ------------------------------------------------####
 
-take_image_btn = Button(delete_student_tab, text="Delete User", bg="orange", fg="white", command=delete_student)
-take_image_btn.place(relx=0.2,x=50,y=140 )
+delete_user_btn = Button(delete_student_tab, text="Delete User", bg="orange", fg="white", command=delete_student)
+delete_user_btn.place(relx=0.2,x=50,y=140 )
 
 
 
@@ -507,6 +536,83 @@ manual_attendance_btn.place(relx=0.2,x=50,y=140 )
 ####################################################### Tab 8 - edit entries  ##################################################################
 ##################################################################################################################################################
 ####------------------------------------------------------Tab 8  (edit entries) Widgets ------------------------------------------------####
+
+tree = ttk.Treeview(edit_attendance_entries_tab, selectmode='browse')
+tree.place(x=30, y=60)
+
+vsb = ttk.Scrollbar(edit_attendance_entries_tab, orient="vertical", command=tree.yview)
+vsb.place(x=0, y=60, height=200+20)
+
+tree.configure(yscrollcommand=vsb.set)
+
+tree["columns"] = ("1", "2","3","4")
+tree['show'] = 'headings'
+tree.column("1", width=80, anchor='c')
+tree.column("2", width=screen_width//4-50, anchor='c')
+tree.column("3", width=screen_width//4-50, anchor='c')
+tree.column("4", width=screen_width//4-20, anchor='c')
+
+tree.heading("1", text="Index")
+tree.heading("2", text="Id")
+tree.heading("3", text="Date")
+tree.heading("4", text="Time")
+
+
+
+
+
+
+
+####------------------------------------------------------Tab 8  (edit entries) functions ------------------------------------------------####
+def create_table():
+    print("Create table")
+    index, id, date, time = facerec.get_all_entries_today()
+    for i,x in enumerate(index):
+        tree.insert("",'end',text="L"+str(i),values=(index[i],id[i], date[i], time[i]))
+
+
+
+def clear_table():
+    for i in tree.get_children():
+        tree.delete(i)
+
+
+create_table() #calls for the first time
+
+def delete_entry_fun():
+    curItem = tree.focus()
+    curIndex = tree.item(curItem)['values'][0]
+    if curIndex >=0:
+        st = facerec.delete_entry(curIndex)
+        recreate_tabel()
+        messagebox.showinfo("Sucess", "Entry removed sucesfully ")
+    else:
+        messagebox.showwarning("invalid selection", "Select an Entry ")
+
+    
+
+def recreate_tabel():
+    clear_table()
+    create_table()
+
+
+####------------------------------------------------------Tab 8  (edit entries) functions ------------------------------------------------####
+
+
+
+remove_enrty_btn = Button(edit_attendance_entries_tab, text="Remove Entry", bg="orange", fg="white", command=delete_entry_fun)
+remove_enrty_btn.place(relx=0.4,x=50,y=300 )
+
+
+
+
+
+
+
+
+
+
+
 
 
 

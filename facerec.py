@@ -506,3 +506,42 @@ def get_old_pass():
 
 
 
+
+###############################################################################################################################################
+#################################################### Change password ##########################################################################
+###############################################################################################################################################
+## Status
+
+
+def get_all_entries_today():
+    date, _=get_date_time()
+    file_path = './Data/reports/'+date+'.csv'
+    if checkfile(date+'.csv'):
+        df = pd.read_csv(file_path)
+        return (list(df.index), list(df.id), list(df.time),list(df.date) )
+    else:
+        return "today Attendance not taken"
+
+
+
+
+def delete_entry(i):
+    print(i)
+    date, _=get_date_time()
+    file_path = './Data/reports/'+date+'.csv'
+    if checkfile(date+'.csv'):
+        df = pd.read_csv(file_path)
+        df.drop(df.index[i], inplace=True)
+        df.to_csv(file_path,index=False)
+        return "Sucess !!"
+
+
+
+
+
+
+
+
+
+
+
