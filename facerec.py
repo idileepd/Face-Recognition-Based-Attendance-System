@@ -12,6 +12,15 @@ import time
 ############################################# utilities ##################################################
 ##########################################################################################################
 
+def check_student(id):
+    #loop over student details and if he is present return true else return false
+    students = get_all_students()
+    for student in students:
+        if student == id:
+            return True
+    return False
+
+
 def checkfile(report_date):
     file_path = './Data/reports/'+report_date
     if(os.path.isfile(file_path)):
@@ -54,6 +63,16 @@ def get_all_encodings():
     else:
         return (known_face_encodings,known_face_names)
 
+def get_all_students():
+    known_face_names = []
+    if check_encode_files() :
+        with open("./Data/encodings/face_names.pkl", "rb") as f:
+            face_names = pickle.load(f)
+            # print(face_names)
+            known_face_names = face_names
+        return known_face_names
+    else:
+        return known_face_names
 
 
 def get_img_encoding(image_path):
@@ -92,6 +111,11 @@ def give_attendance(datee,time,id):
         return id
 
 
+def get_date_time():
+    ts = time.time()      
+    date = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
+    timeStamp = datetime.datetime.fromtimestamp(ts).strftime('%H:%M:%S')
+    return (date, timeStamp)
 
 
 
@@ -141,9 +165,10 @@ def take_student_attendance():
                 first_match_index = matches.index(True)
                 name = known_face_names[first_match_index]
                 #also save to dict for later attendance
-                ts = time.time()      
-                date = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
-                timeStamp = datetime.datetime.fromtimestamp(ts).strftime('%H:%M:%S')
+                # ts = time.time()      
+                # date = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
+                # timeStamp = datetime.datetime.fromtimestamp(ts).strftime('%H:%M:%S')
+                date,timeStamp = get_date_time()
                 stu_att['id'] = str(name)
                 stu_att['date'] = str(date)
                 stu_att['time'] = str(timeStamp)
@@ -371,9 +396,10 @@ def take_group_attendance():
                 first_match_index = matches.index(True)
                 name = known_face_names[first_match_index]
                 #also save to dict for later attendance
-                ts = time.time()  
-                date = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
-                timeStamp = datetime.datetime.fromtimestamp(ts).strftime('%H:%M:%S')
+                # ts = time.time()  
+                # date = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
+                # timeStamp = datetime.datetime.fromtimestamp(ts).strftime('%H:%M:%S')
+                date, timeStamp = get_date_time()
                 g_id = str(name)
                 stu_set.add(name)
                 g_date = str(date)
@@ -421,6 +447,59 @@ def take_group_attendance():
 
 
 
+
+
+
+
+
+
+
+###############################################################################################################################################
+#################################################### Manually Give Attendance     #############################################################
+###############################################################################################################################################
+#### return flags
+# -2 >> Already given
+# -3 >> Student id not found
+#  id >> Given att
+
+
+def manual_attendace(id):
+    if check_student(id):
+        date, timeStamp = get_date_time()
+        status = give_attendance(date,timeStamp,id)
+        return status
+    else:
+        return -3
+
+
+
+
+
+###############################################################################################################################################
+#################################################### Change password ##########################################################################
+###############################################################################################################################################
+## Status
+# >>0 >> sucess
+# >> -1 >> old pass is wrong
+
+def change_admin_password(e_old_pass, new_pass):
+    old_pass = get_old_pass()
+    if e_old_pass == old_pass:
+        new_pass = [new_pass]
+        with open("./Data/pa.pkl", "wb") as f:
+            pickle.dump(new_pass,f)
+            print(new_pass,": passwrod updated")
+            return 0
+    else:
+        return -1
+
+
+def get_old_pass():
+        with open("./Data/pa.pkl", "rb") as f:
+            passwords = pickle.load(f)
+            password = passwords[0]
+            print("old password",password)
+            return password
 
 
 

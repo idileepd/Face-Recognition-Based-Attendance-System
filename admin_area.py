@@ -1,10 +1,15 @@
 import get_reports
 import facerec
-from tkinter import *
-from tkinter import ttk
-from tkinter import messagebox
 import plot_graphs
 import group_attendance
+
+
+from tkinter import ttk
+from tkinter import messagebox
+from tkinter import Tk
+from tkinter import Button
+from tkinter import Label
+from tkinter import Entry
 
 
 window = Tk()
@@ -53,7 +58,9 @@ tab_control.add(delete_student_tab, text='  Delete Student  ')
 tab_control.add(reports_generation_tab, text='  Generate Reports  ')
 tab_control.add(graph_generation_tab, text=' Generate Graphs  ')
 tab_control.add(manual_attendance_tab, text=' Manual Attendance Entry  ')
+tab_control.add(edit_attendance_entries_tab, text=' Edit Latest attendance Entries ')
 tab_control.add(change_password_tab, text=' Change Password  ')
+
 
 
 
@@ -441,10 +448,134 @@ plt_rane_btn.place(relx=0.5, x=0,y=240 )
 
 
 
+##################################################################################################################################################
+####################################################### Tab 7 - manual Entry ##################################################################
+##################################################################################################################################################
+####------------------------------------------------------Tab 7  (manual entry) Widgets ------------------------------------------------####
+tab7_label_title = Label(manual_attendance_tab, text="Manually give attendance ", font=("Arial Bold",23),)
+tab7_label_title.place(x=0,y=10 )
+
+#Enter ID field
+tab7_label_id = Label(manual_attendance_tab, text="Enter ID   : ",width=10  ,height=2  ,font=('times', 15, ' bold ') ) 
+tab7_label_id.place(relx=0.2,x=-150,y=65 )
+
+tab7_entry_id = Entry(manual_attendance_tab,width=10  ,bg="white" ,fg="red",font=('times', 15, ' bold '))
+tab7_entry_id.place(relx=0.2,x=50,y=80 )
+
+
+
+####------------------------------------------------------Tab 7  (Manual Entry) functions ------------------------------------------------####
+
+def clear_tab7():
+    tab7_entry_id.delete(0,'end')
+
+def manual_give_attendance():
+    id = tab7_entry_id.get()
+
+    if ((len(id)>0) and id.isalnum()):
+        
+        status =  facerec.manual_attendace(id)
+
+        if status == id :
+            messagebox.showinfo('sucess', str(status)+'Student given Attendance Sucessfully !')
+            clear_tab7()
+        elif status == -2:
+             messagebox.showwarning('Already taken', str(id)+' : Student has already given attendance')
+        else :
+            messagebox.showerror('failure', "Student Doesn't Exist")
+    else:
+        messagebox.showerror('Input Error', 'Enter valid. Input')
+
+
+
+####------------------------------------------------------Tab 7 Widgets (Manually give attendance) ------------------------------------------------####
+
+manual_attendance_btn = Button(manual_attendance_tab, text="Give Attendance", bg="orange", fg="white", command=manual_give_attendance)
+manual_attendance_btn.place(relx=0.2,x=50,y=140 )
 
 
 
 
+
+
+
+
+
+
+
+##################################################################################################################################################
+####################################################### Tab 8 - edit entries  ##################################################################
+##################################################################################################################################################
+####------------------------------------------------------Tab 8  (edit entries) Widgets ------------------------------------------------####
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##################################################################################################################################################
+####################################################### Tab 9 - change password ##################################################################
+##################################################################################################################################################
+####------------------------------------------------------Tab 9  (change passwrod) Widgets ------------------------------------------------####
+tab9_label_title = Label(change_password_tab, text="Change password", font=("Arial Bold",23),)
+tab9_label_title.place(x=0,y=10 )
+
+#Enter old password
+tab9_label_old_pass = Label(change_password_tab, text="Enter old password   : ",width=10  ,height=2  ,font=('times', 15, ' bold ') ) 
+tab9_label_old_pass.place(relx=0.2,x=-150,y=65 )
+
+tab9_entry_old_pass = Entry(change_password_tab,width=10  ,bg="white" ,fg="red",font=('times', 15, ' bold '))
+tab9_entry_old_pass.place(relx=0.2,x=50,y=80 )
+
+
+#Enter new password
+tab9_label_new_pass = Label(change_password_tab, text="Enter new password   : ",width=10  ,height=2  ,font=('times', 15, ' bold ') ) 
+tab9_label_new_pass.place(relx=0.2,x=-150,y=95 )
+
+tab9_entry_new_pass = Entry(change_password_tab,width=10  ,bg="white" ,fg="red",font=('times', 15, ' bold '))
+tab9_entry_new_pass.place(relx=0.2,x=50,y=110 )
+
+
+####------------------------------------------------------Tab 9  (change password) functions ------------------------------------------------####
+
+def clear_tab9():
+    tab9_entry_old_pass.delete(0,'end')
+    tab9_entry_new_pass.delete(0,'end')
+
+
+def change_password():
+    old_pass = tab9_entry_old_pass.get()
+    new_pass = tab9_entry_new_pass.get()
+
+    print("old pas ",old_pass)
+    print("new pas",new_pass)
+    if len(old_pass)>0 and len(new_pass)>0 :
+        
+        status =  facerec.change_admin_password(old_pass, new_pass)
+
+        if status == -1 :
+            messagebox.showerror('failed', "Entered old password is wrong")
+            
+        else :
+            messagebox.showinfo('sucess', "sucessfully updated password")
+            clear_tab9()
+    else:
+        messagebox.showerror('Input Error', 'Enter valid. Input')
+
+
+
+####------------------------------------------------------Tab 9 Widgets (change password) ------------------------------------------------####
+
+change_pass_btn = Button(change_password_tab, text="change password", bg="orange", fg="white", command=change_password)
+change_pass_btn.place(relx=0.2,x=50,y=180 )
 
 
 
