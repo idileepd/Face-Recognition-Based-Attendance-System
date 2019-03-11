@@ -16,10 +16,14 @@ window.title("FRAS")
 window.attributes("-fullscreen",True)
 
 
-
 ########################################################################################################
 ################################ widgets ###############################################################
 ########################################################################################################
+#title
+label_title = Label(window, text="FACE RECOGNITION BASED ATTENDANCE SYSTEM",width=60  ,height=2 , bg='green', fg='white' ,font=('times', 30, ' bold ') ) 
+label_title.place(x=0,y=0 )
+
+
 #Enter  password
 label_pass = Label(window, text="Enter password   : ",width=13  ,height=2  ,font=('times', 15, ' bold ') ) 
 label_pass.place(relx=0.6,rely=0.3,x=-20 )
@@ -44,11 +48,12 @@ def get_old_pass():
         passwords = pickle.load(f)
         password = passwords[0]
         print("old password",password)
-        return password
+        return password         
 
 
 
 def admin_area():
+    messagebox.showinfo("loading","Loading please wait...")
     pwd = get_old_pass()
     if pwd == entry_pass.get():
         cmd = "python admin_area.py"
@@ -57,10 +62,14 @@ def admin_area():
 
     else:
         messagebox.showerror("Authentication error","Wrong password !   ")
+    
+    
+
 
 
 
 def student_area():
+    messagebox.showinfo("loading","Loading please wait...")
     cmd = "python student_area.py"
     system(cmd)
 

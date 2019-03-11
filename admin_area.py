@@ -635,19 +635,19 @@ tab9_label_title = Label(change_password_tab, text="Change password", font=("Ari
 tab9_label_title.place(x=0,y=10 )
 
 #Enter old password
-tab9_label_old_pass = Label(change_password_tab, text="Enter old password   : ",width=10  ,height=2  ,font=('times', 15, ' bold ') ) 
-tab9_label_old_pass.place(relx=0.2,x=-150,y=65 )
+tab9_label_old_pass = Label(change_password_tab, text="Enter old password   : ",width=15  ,height=2  ,font=('times', 15, ' bold ') ) 
+tab9_label_old_pass.place(relx=0.2,x=-200,y=65 )
 
 tab9_entry_old_pass = Entry(change_password_tab,width=10  ,bg="white" ,fg="red",font=('times', 15, ' bold '))
 tab9_entry_old_pass.place(relx=0.2,x=50,y=80 )
 
 
 #Enter new password
-tab9_label_new_pass = Label(change_password_tab, text="Enter new password   : ",width=10  ,height=2  ,font=('times', 15, ' bold ') ) 
-tab9_label_new_pass.place(relx=0.2,x=-150,y=95 )
+tab9_label_new_pass = Label(change_password_tab, text="Enter new password   : ",width=16  ,height=2  ,font=('times', 15, ' bold ') ) 
+tab9_label_new_pass.place(relx=0.2,x=-200,y=105 )
 
 tab9_entry_new_pass = Entry(change_password_tab,width=10  ,bg="white" ,fg="red",font=('times', 15, ' bold '))
-tab9_entry_new_pass.place(relx=0.2,x=50,y=110 )
+tab9_entry_new_pass.place(relx=0.2,x=50,y=120 )
 
 
 ####------------------------------------------------------Tab 9  (change password) functions ------------------------------------------------####
