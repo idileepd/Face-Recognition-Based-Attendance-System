@@ -47,6 +47,7 @@ tab_control = ttk.Notebook(window)
 #create frames
 take_attendance_tab = ttk.Frame(tab_control)
 group_attendance_tab = ttk.Frame(tab_control)
+auto_attendance_tab = ttk.Frame(tab_control)
 add_new_student_tab = ttk.Frame(tab_control)
 delete_student_tab = ttk.Frame(tab_control)
 reports_generation_tab = ttk.Frame(tab_control)
@@ -66,8 +67,9 @@ change_password_tab = ttk.Frame(tab_control)
 
 
 #add frames to tab controller
-tab_control.add(take_attendance_tab, text='  Take Attendance  ')
-tab_control.add(group_attendance_tab, text=' Take Group Attendance  ')
+tab_control.add(take_attendance_tab, text='  Normal Attendance  ')
+tab_control.add(group_attendance_tab, text=' Group Attendance  ')
+tab_control.add(auto_attendance_tab, text=' Auto Attendance  ')
 tab_control.add(add_new_student_tab, text='  Add New Student  ')
 tab_control.add(delete_student_tab, text='  Delete Student  ')
 tab_control.add(reports_generation_tab, text='  Generate Reports  ')
@@ -101,6 +103,12 @@ take_group_att_btn.place(relx=0.8, rely=0.8, x=0,y=30 )
 all_dates_reports =  [x[:-4] for x in get_reports.get_all_att_reports_list()  ] 
 all_dates_reports.insert(0,'select date')
 all_dates_reports = tuple(all_dates_reports)
+
+# def update_reports():
+#     global all_dates_reports
+#     all_dates_reports =  [x[:-4] for x in get_reports.get_all_att_reports_list()  ]
+#     all_dates_reports = tuple(all_dates_reports)
+#     print("Reports updated!")
 
 
 screen_width = window.winfo_screenwidth()
@@ -142,8 +150,8 @@ screen_height = window.winfo_screenheight()
 instructions_tab1 = """
 Instructions : After clicking on "Take Attendance" button
     1. Place your face infront of camera it will show your face
-    2. Adjust your face to get your rollnumber, If you can see your rollnumber
-    3. Then press  'T'  to take attencance
+    2. Adjust your face to get your rollnumber on screen
+    3. If can see your rollnumber, Then press  'T'  to take attencance
     4. If you want quit from taking press 'Q'
 """
 tab1_ins_label = Label(take_attendance_tab, text=instructions_tab1, width=60, height=15, font=('times', 15, ' bold ') ) 
@@ -163,6 +171,7 @@ def take_student_attendance():
         msg = str(Id)+' : Student has given attendance'
         messagebox.showinfo('sucess ',msg)
         recreate_tabel() # to recreate table in Edit entries tab
+        # update_reports()
 
 
 
@@ -189,10 +198,10 @@ take_att_btn.place(relx=0.2,x=0,y=30 )
 ####------------------------------------------------Tab 2 Widgets  -----------------------------------------------------####
 instructions_tab2 = """
 Instructions : After clicking on "Take Attendance" button
-    1. Place your face infront of camera it will show your face
+    1. Place your face infront of camera it will show your face in a new window
     2. Adjust your face to get your rollnumber
-    3. Do 1,2 steps for each person 
-    4. Then press  'T'  to take attencance for all people
+    3. Do 1,2 steps for each person in the group
+    4. Then press  'T'  to take attencance for all people who got roll number on screen
     5. Press 'Q' if you want quit from taking attendance
 """
 
@@ -224,6 +233,62 @@ take_grp_att_btn.place(relx=0.2,x=0,y=30 )
 
 
 
+
+
+
+
+
+
+
+
+
+########################################################################################################################################
+####################################################### Tab 2 - auto Attendance #######################################################
+########################################################################################################################################
+
+####------------------------------------------------Tab 2 Widgets  -----------------------------------------------------####
+instructions_tab3 = """
+Instructions : After clicking on "Take Attendance" button
+    1. Place your face infront of camera it will show your face
+    2. Adjust your face to get your rollnumber and attendance will be automatically given
+    3. Do 1,2 steps for each person
+    5. Press 'Q' if you want quit from taking attendance
+"""
+
+tab3_ins_label = Label(auto_attendance_tab, text=instructions_tab3, width=60, height=15, font=('times', 15, ' bold ') ) 
+tab3_ins_label.place(x=0,y=0 )
+
+
+####------------------------------------------------Tab 2 Functions  -----------------------------------------------------####
+
+def take_auto_attendance_fun():
+    messagebox.showinfo("Auto Attendance", "Press 'Q' if you want to  stop taking attnedance")
+    facerec.take_auto_attendance()
+    recreate_tabel() # to recreate table in Edit entries tab
+
+
+
+
+####------------------------------------------------Tab 2 Buttons  -----------------------------------------------------####
+
+take_auto_att_btn = Button(auto_attendance_tab, text="Take Auto Attendance", bg="red", fg="white", command=take_auto_attendance_fun, font=('times', 15, ' bold '))
+take_auto_att_btn.place(relx=0.2,x=0,y=30 )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ########################################################################################################################################
 ####################################################### Tab 3 - Add New Student ########################################################
 ########################################################################################################################################
@@ -240,7 +305,7 @@ Instructions : After clicking on "Add user" button
     1. Place your face infront of camera, it will show your face
     2. Adjust your face to get nice picture of your face
     3. press 'T' to take picture
-    4. press 'Q' ,  if you want to quit
+    4. Else, press 'Q' ,  if you want to quit
 """
 tab3_label_ins = Label(add_new_student_tab, text=instructions_tab3, width=60, height=10, font=('times', 15, ' bold ') ) 
 tab3_label_ins.place(x=-20,y=250 )
@@ -417,7 +482,7 @@ get_t_per_btn.place(x=145,y=30 )
 get_rep_desk_btn = Button(reports_generation_tab, text="Get All Reports to Desktop", bg="red", fg="white", command=get_rep_desk, font=('times', 15, ' bold '))
 get_rep_desk_btn.place(x=145,y=100 )
 
-get_rep_perc_avg_btn = Button(reports_generation_tab, text="Get Average attendance percentage", bg="red", fg="white", command=get_rep_all_avg, font=('times', 15, ' bold '))
+get_rep_perc_avg_btn = Button(reports_generation_tab, text="Get Average attendance percentage (All Time)", bg="red", fg="white", command=get_rep_all_avg, font=('times', 15, ' bold '))
 get_rep_perc_avg_btn.place(x=145,y=150 )
 
 
@@ -449,7 +514,7 @@ end_dt_combo.current(0) #set the default on
 end_dt_combo.place(relx=0.3,x=55,y=250 )
 
 
-tab_4_label_range = Label(graph_generation_tab, text="Plot Graph  between this date range : ",width=25 ,height=2  ,font=('times', 15, ' bold ') ) 
+tab_4_label_range = Label(graph_generation_tab, text="Plot Graph  between this date range : ",width=26 ,height=2  ,font=('times', 15, ' bold ') ) 
 tab_4_label_range.place(relx=0.1,x=1,y=215 )
 ####------------------------------------------------------Tab 5  (Generate Graphs) functions ------------------------------------------------####
 

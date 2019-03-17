@@ -38,8 +38,8 @@ auto_attendance_tab = ttk.Frame(tab_control)
 
 
 #add frames to tab controller
-tab_control.add(take_attendance_tab, text='  Take Attendance  ')
-tab_control.add(group_attendance_tab, text=' Take Group Attendance  ')
+tab_control.add(take_attendance_tab, text='  Normal Attendance  ')
+tab_control.add(group_attendance_tab, text='  Group Attendance  ')
 tab_control.add(auto_attendance_tab, text=' Auto Attendance  ')
 
 
@@ -163,7 +163,7 @@ take_grp_att_btn.place(relx=0.2,x=0,y=30 )
 
 
 ########################################################################################################################################
-####################################################### Tab 2 - Group Attendance #######################################################
+####################################################### Tab 2 - auto Attendance #######################################################
 ########################################################################################################################################
 
 ####------------------------------------------------Tab 2 Widgets  -----------------------------------------------------####
@@ -175,8 +175,8 @@ Instructions : After clicking on "Take Attendance" button
     5. Press 'Q' if you want quit from taking attendance
 """
 
-tab1_ins_label = Label(auto_attendance_tab, text=instructions_tab3, width=60, height=15, font=('times', 15, ' bold ') ) 
-tab1_ins_label.place(x=0,y=0 )
+tab3_ins_label = Label(auto_attendance_tab, text=instructions_tab3, width=60, height=15, font=('times', 15, ' bold ') ) 
+tab3_ins_label.place(x=0,y=0 )
 
 
 ####------------------------------------------------Tab 2 Functions  -----------------------------------------------------####

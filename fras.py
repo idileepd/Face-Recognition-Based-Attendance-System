@@ -53,7 +53,6 @@ def get_old_pass():
 
 
 def admin_area():
-    messagebox.showinfo("loading","Loading please wait...")
     pwd = get_old_pass()
     if pwd == entry_pass.get():
         cmd = "python admin_area.py"
@@ -69,7 +68,7 @@ def admin_area():
 
 
 def student_area():
-    messagebox.showinfo("loading","Loading please wait...")
+#     messagebox.showinfo("loading","Loading please wait...")
     cmd = "python student_area.py"
     system(cmd)
 
@@ -84,11 +83,11 @@ def student_area():
 
 
 
-take_group_att_btn = Button(window, text="Student Area", bg="blue", fg="white", command=student_area, font=('times', 20, ' bold '))
+take_group_att_btn = Button(window, text="TAKE ATTENDANCE", bg="blue", fg="white", command=student_area, font=('times', 20, ' bold '))
 take_group_att_btn.place(relx=0.2, rely=0.4,  )
 
 
-take_group_att_btn = Button(window, text="Admin Area", bg="red", fg="white", command=admin_area, font=('times', 20, ' bold '))
+take_group_att_btn = Button(window, text="ADMIN AREA", bg="red", fg="white", command=admin_area, font=('times', 20, ' bold '))
 take_group_att_btn.place(relx=0.6, rely=0.4,  )
 
 

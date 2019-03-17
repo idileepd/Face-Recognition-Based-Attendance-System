@@ -13,6 +13,9 @@ import pyttsx3
 ############################################# utilities ##################################################
 ##########################################################################################################
 
+## Video capture variable
+camera_value = 0
+
 
 ##Speak engine
 
@@ -145,8 +148,9 @@ def get_date_time():
 
 
 def take_student_attendance():
+    global camera_value
     known_face_encodings, known_face_names = get_all_encodings()
-    video_capture = cv2.VideoCapture(1)
+    video_capture = cv2.VideoCapture(camera_value)
     stu_att ={
         'id':'Unknown',
         'time':'',
@@ -258,11 +262,12 @@ def add_student_encodes_and_name(id):
 
 
 def save_image(id):
+    global camera_value
     path = str(id)+'.jpg'
     flag = 0
     while True:
         face_locations = []
-        video_capture = cv2.VideoCapture(1)
+        video_capture = cv2.VideoCapture(camera_value)
         # Grab a single frame of video
         ret, frame = video_capture.read()
 
@@ -375,11 +380,12 @@ def delete_student_encode_and_name(id):
 
 
 def take_group_attendance():
+    global camera_value
     known_face_encodings, known_face_names = get_all_encodings()
     given_attendances = []
     already_presented_guys = []
     # load_encodings() #first load image encodings 
-    video_capture = cv2.VideoCapture(1)
+    video_capture = cv2.VideoCapture(camera_value)
     g_date = ''
     g_time = ''
     g_id = 'Unknown'
@@ -432,10 +438,10 @@ def take_group_attendance():
             print (stu_set)
             for x in stu_set:
                 status = give_attendance(g_date, g_time, x)
-                if status ==1:
-                    given_attendances.append(x)
-                else:
+                if status ==-2:
                     already_presented_guys.append(x)
+                else:
+                    given_attendances.append(x)
                 msg = 'Given Attendances : '+str(given_attendances)+'\n Already present : '+ str(already_presented_guys)
             break
 
@@ -527,7 +533,7 @@ def get_all_entries_today():
         df = pd.read_csv(file_path)
         return (list(df.index), list(df.id), list(df.time),list(df.date) )
     else:
-        return "today Attendance not taken"
+        return ([],[],[],[])
 
 
 
@@ -568,8 +574,9 @@ def speak_given_attendance(status):
 
 
 def take_auto_attendance():
+    global camera_value
     known_face_encodings, known_face_names = get_all_encodings()
-    video_capture = cv2.VideoCapture(1)
+    video_capture = cv2.VideoCapture(camera_value)
     stu_att ={
         'id':'Unknown',
         'time':'',
