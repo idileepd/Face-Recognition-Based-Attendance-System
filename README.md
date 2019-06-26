@@ -1,6 +1,8 @@
 # FRAS
 Face Recognition attendance system
 
+## DEMO : https://www.youtube.com/watch?v=Gmyu9Ehegsc
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Gmyu9Ehegsc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <p><span style="font-size: 15pt;">Setup</span></p>
 <p>1.Install anaconda or python (anaconda is recommended )</p>
