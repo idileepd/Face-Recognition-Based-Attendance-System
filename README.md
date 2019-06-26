@@ -2,8 +2,7 @@
 Face Recognition attendance system
 
 ## DEMO : https://www.youtube.com/watch?v=Gmyu9Ehegsc
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Gmyu9Ehegsc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+[![Little red ridning hood](https://img.youtube.com/vi/Gmyu9Ehegsc/0.jpg)](https://vimeo.com/3514904 "FRAS Youtube Video - Click to Watch!")
 <p><span style="font-size: 15pt;">Setup</span></p>
 <p>1.Install anaconda or python (anaconda is recommended )</p>
 <p>&nbsp; &nbsp;<a href="https://www.anaconda.com/distribution/">Download Anaconda</a></p>
